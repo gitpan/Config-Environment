@@ -7,7 +7,7 @@ use Moo;
 use Hash::Flatten ();
 use Hash::Merge   ();
 
-our $VERSION = '0.000001'; # VERSION
+our $VERSION = '0.000002'; # VERSION
 
 
 sub BUILDARGS {
@@ -139,7 +139,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000001
+version 0.000002
 
 =head1 SYNOPSIS
 
@@ -154,8 +154,8 @@ version 0.000001
 
     my $info = $conf->param('db.1');
     say $info->{conn}; # outputs dbi:mysql:dbname=foobar
-    say $info->{user}; # outputs value of $ENV{MYAPP_DB_1_USER}
-    say $info->{pass}; # outputs value of $ENV{MYAPP_DB_1_PASS}
+    say $info->{user}; # outputs the value of $ENV{MYAPP_DB_1_USER}
+    say $info->{pass}; # outputs the value of $ENV{MYAPP_DB_1_PASS}
 
     likewise ...
 
@@ -163,8 +163,8 @@ version 0.000001
 
     creates the following environment variables and assignments
 
-    $ENV{MYAPP_SERVER_NODE_1} = '10.10.10.02'
-    $ENV{MYAPP_SERVER_NODE_2} = '10.10.10.03'
+    $ENV{MYAPP_SERVER_NODE_1} = '10.10.10.02';
+    $ENV{MYAPP_SERVER_NODE_2} = '10.10.10.03';
 
     ... and the configuration can be retrieved using any of the following
 
@@ -183,10 +183,8 @@ Config::Environment is an interface for managing application configuration using
 environment variables as a backend. Using environment variables as a means of
 application configuration is a great way of controlling which parts of your
 application configuration gets hard-coded and shipped with your codebase (and
-which parts do not). Additionally, application configuration can be set at the
-system, user, and/or application level and easily overridden by using
-environment variables. Please note that variable names are handled in a
-case-insensative manner.
+which parts do not). Using environment variables, application configuration can
+be set at the system, user, and/or application levels and easily overridden.
 
 =head1 ATTRIBUTES
 
@@ -217,14 +215,6 @@ form of a scalar, arrayref or hashref.
 
     my $item = $self->param($key);
     my $item = $self->param($key => $value);
-
-    $self->param('a.b');
-    $self->param('a.b.c');
-    $self->param('a.b.c.1');
-    $self->param('a.b.c.2');
-    $self->param('z.x.y.1.a');
-    $self->param('z.x.y.2.a');
-    $self->param('z.x.y.3.a');
 
 =head2 params
 

@@ -8,3 +8,4 @@ README.mkdn
 cpanfile
 lib/Config/Environment.pm
 t/00-load.t
+t/01-synopsis.t
