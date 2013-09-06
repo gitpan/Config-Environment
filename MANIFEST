@@ -1,0 +1,10 @@
+Changes
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+README.mkdn
+cpanfile
+lib/Config/Environment.pm
+t/00-load.t
