@@ -3,7 +3,7 @@ NAME
     Variables
 
 VERSION
-    version 0.000002
+    version 0.000003
 
 SYNOPSIS
         use Config::Environment;
@@ -50,9 +50,19 @@ DESCRIPTION
     system, user, and/or application levels and easily overridden.
 
 ATTRIBUTES
+  autoload
+    The autoload attribute contains a boolean value which determines whether
+    the global ENV hash will be sourced during instantiation. This attribute
+    is set to true by default.
+
   domain
     The domain attribute contains the environment variable prefix used as
     context to differentiate between other environment variables.
+
+  override
+    The override attribute contains a boolean value which determines whether
+    parameters corresponding to an existing environment variable can have
+    it's value overridden. This attribute is set to true by default.
 
 METHODS
   load
@@ -91,6 +101,17 @@ METHODS
     variables specific to the instantiated object's domain and instance.
 
         my $environment = $self->environment;
+
+  subdomain
+    The subdomain method returns a copy of the existing class instance
+    modifying the domain for easier access to long/deep keys.
+
+        my $db  = $self->subdomain('db');
+        my $db1 = $db->subdomain('1');
+
+        $db1->param('conn' => $connstring);
+        $db1->param('user' => $username);
+        $db1->param('pass' => $password);
 
 AUTHOR
     Al Newkirk <anewkirk@ana.io>

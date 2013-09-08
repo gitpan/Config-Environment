@@ -1,10 +1,26 @@
 ==================================================
-Changes from 2012-09-06 00:00:00 +0000 to present.
+Changes from 2012-09-08 00:00:00 +0000 to present.
 ==================================================
 
 ---------------------------------------------
-version 0.000002 at 2013-09-06 10:18:40 +0000
+version 0.000003 at 2013-09-08 16:39:53 +0000
 ---------------------------------------------
+
+  Change: 4164a3cabff7fddb19a7a07d828a84fdeac0d181
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-09-08 12:39:27 +0000
+
+    added the subdomain method and the autoload and override attributes 
+
+---------------------------------------------
+version 0.000002 at 2013-09-06 10:18:44 +0000
+---------------------------------------------
+
+  Change: 13a5e88d9cf8094c306e09c9cca6fed80e5b39ff
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-09-06 06:18:44 +0000
+
+    v0.000002 
 
   Change: 77a03842165f51d2c923da52da8b9d4fc4cf4ead
   Author: Al Newkirk <anewkirk@ana.io>
