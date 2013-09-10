@@ -1,10 +1,26 @@
 ==================================================
-Changes from 2012-09-08 00:00:00 +0000 to present.
+Changes from 2012-09-10 00:00:00 +0000 to present.
 ==================================================
 
 ---------------------------------------------
-version 0.000003 at 2013-09-08 16:39:53 +0000
+version 0.000004 at 2013-09-10 05:59:43 +0000
 ---------------------------------------------
+
+  Change: dcf5f16cab907db2932009352291898e3bbf4448
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-09-10 01:59:33 +0000
+
+    added the lifecycle and mirror attributes 
+
+---------------------------------------------
+version 0.000003 at 2013-09-08 16:39:57 +0000
+---------------------------------------------
+
+  Change: d72cf64644af690cdf8ac8e9f85538e069f46b41
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-09-08 12:39:57 +0000
+
+    v0.000003 
 
   Change: 4164a3cabff7fddb19a7a07d828a84fdeac0d181
   Author: Al Newkirk <anewkirk@ana.io>

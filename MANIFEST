@@ -9,5 +9,7 @@ cpanfile
 lib/Config/Environment.pm
 t/00-load.t
 t/01-synopsis.t
-t/02-no-overriding.t
-t/03-subdomains.t
+t/02-no-override.t
+t/03-subdomain.t
+t/04-lifecycle.t
+t/05-mirror.t

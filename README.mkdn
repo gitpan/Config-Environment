@@ -4,7 +4,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 # VERSION
 
-version 0.000003
+version 0.000004
 
 # SYNOPSIS
 
@@ -64,6 +64,18 @@ set to true by default.
 The domain attribute contains the environment variable prefix used as context
 to differentiate between other environment variables.
 
+## lifecycle
+
+The lifecycle attribute contains a boolean value which if true restricts any
+environment variables changes to life of the class instance. This attribute
+is set to false by default.
+
+## mirror
+
+The mirror attribute contains a boolean value which if true copies any
+configuration assignments to the corresponding environment variables. This
+attribute is set to true by default.
+
 ## override
 
 The override attribute contains a boolean value which determines whether
@@ -114,8 +126,8 @@ specific to the instantiated object's domain and instance.
 
 ## subdomain
 
-The subdomain method returns a copy of the existing class instance modifying the
-domain for easier access to long/deep keys.
+The subdomain method returns a copy of the class instance with a modified domain
+reference for easier access to nested configuration keys.
 
     my $db  = $self->subdomain('db');
     my $db1 = $db->subdomain('1');
