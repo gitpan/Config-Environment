@@ -1,10 +1,27 @@
 ==================================================
-Changes from 2012-09-10 00:00:00 +0000 to present.
+Changes from 2012-10-06 00:00:00 +0000 to present.
 ==================================================
 
 ---------------------------------------------
-version 0.000004 at 2013-09-10 05:59:43 +0000
+version 0.000005 at 2013-10-06 04:11:48 +0000
 ---------------------------------------------
+
+  Change: bf8431b14cf12ddf6a23d68d45fa3d86a3f3f8f3
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-10-06 00:11:29 +0000
+
+    added better handling of parameter assignment and updated the
+    documentation 
+
+---------------------------------------------
+version 0.000004 at 2013-09-10 05:59:48 +0000
+---------------------------------------------
+
+  Change: fb9313e2f53bf682805318a14611e81eeef03cf5
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-09-10 01:59:48 +0000
+
+    v0.000004 
 
   Change: dcf5f16cab907db2932009352291898e3bbf4448
   Author: Al Newkirk <anewkirk@ana.io>
