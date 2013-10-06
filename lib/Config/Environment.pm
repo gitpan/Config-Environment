@@ -7,7 +7,7 @@ use Moo;
 use Hash::Flatten ();
 use Hash::Merge   ();
 
-our $VERSION = '0.000005'; # VERSION
+our $VERSION = '0.000006'; # VERSION
 
 
 sub BUILDARGS {
@@ -146,7 +146,7 @@ sub param {
                 return undef;
             }
         }
-        return $self->{registry}{env}{$key} = $node;
+        return $node;
     }
 
     return;
@@ -234,7 +234,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000005
+version 0.000006
 
 =head1 SYNOPSIS
 
