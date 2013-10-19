@@ -13,3 +13,4 @@ t/02-override.t
 t/03-subdomain.t
 t/04-lifecycle.t
 t/05-mirror.t
+t/06-domains.t

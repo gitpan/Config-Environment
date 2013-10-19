@@ -21,4 +21,4 @@ resources:
   bugtracker: https://github.com/alnewkirk/Config-Environment/issues
   homepage: http://search.cpan.org/dist/Config-Environment/
   repository: git://github.com/alnewkirk/Config-Environment.git
-version: 0.000006
+version: 0.000007

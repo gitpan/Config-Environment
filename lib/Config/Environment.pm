@@ -7,7 +7,7 @@ use Moo;
 use Hash::Flatten ();
 use Hash::Merge   ();
 
-our $VERSION = '0.000006'; # VERSION
+our $VERSION = '0.000007'; # VERSION
 
 
 sub BUILDARGS {
@@ -19,8 +19,15 @@ sub BUILDARGS {
 
 sub BUILD {
     my ($self) = @_;
-    my $dom = lc $self->domain;
 
+    $self->{domain} = lc $self->{domain};
+    if ($self->{domain} =~ s/[^a-zA-Z0-9]+/_/g) {
+        my ($dom, $subdom) = split /_/, $self->{domain}, 2;
+        $self->{domain}    = $dom;
+        $self->{subdomain} = $self->to_sub_key($subdom);
+    }
+
+    my $dom = $self->domain;
     $self->{snapshot} = { map {$_ => $ENV{$_}} grep { /^$dom\_/i } keys %ENV };
     return $self->load({%ENV}) if $self->autoload;
 }
@@ -183,8 +190,8 @@ sub subdomain {
         domain    => $dom
     );
 
-    ($copy->{subdomain} = $self->to_dom_key($key)) =~ s/^$dom(\.)?//;
-    $copy->{registry} = $self->{registry};
+    $copy->{subdomain} = $self->to_sub_key($key);
+    $copy->{registry}  = $self->{registry};
 
     return $copy;
 }
@@ -210,6 +217,15 @@ sub to_env_key {
     return uc join '_', $dom, split /\./, $key
 }
 
+sub to_sub_key {
+    my ($self, $key) = @_;
+    my $dom = $self->domain;
+
+    ($key = $self->to_dom_key($key)) =~ s/^$dom(\.)?//;
+
+    return $key;
+}
+
 sub DESTROY {
     my ($self) = @_;
 
@@ -217,7 +233,8 @@ sub DESTROY {
         my $environment = $self->environment;
         my $snapshot    = $self->{snapshot};
 
-        delete $ENV{$_} for grep { ! exists $snapshot->{$_} } keys %{$environment};
+        delete $ENV{$_} for grep { ! exists $snapshot->{$_} }
+            keys %{$environment};
         $ENV{$_} = $snapshot->{$_} for keys %{$snapshot};
     }
 }
@@ -234,7 +251,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000006
+version 0.000007
 
 =head1 SYNOPSIS
 
