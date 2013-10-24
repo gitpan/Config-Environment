@@ -2,12 +2,13 @@
 package Config::Environment;
 
 use utf8;
+use 5.10.0;
 
 use Moo;
 use Hash::Flatten ();
 use Hash::Merge   ();
 
-our $VERSION = '0.000007'; # VERSION
+our $VERSION = '0.000008'; # VERSION
 
 
 sub BUILDARGS {
@@ -162,6 +163,15 @@ sub param {
 
 sub params {
     my ($self, @keys) = @_;
+
+    if ($#keys == 0) {
+        if ('HASH' eq ref $keys[0]) {
+            while (my ($key, $value) = each%{$keys[0]}) {
+                $self->param($key, $value);
+            }
+        }
+    }
+
     my @vals = map { $self->param($_) } @keys;
     return wantarray ? @vals : $vals[0];
 }
@@ -251,7 +261,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000007
+version 0.000008
 
 =head1 SYNOPSIS
 
@@ -334,9 +344,11 @@ value overridden. This attribute is set to true by default.
 =head2 load
 
 The load method expects a hashref which it parses and generates environment
-variables from whether they exist or not and registers the formatted environment
-structure. This method is called automatically on instantiation using the global
-ENV hash as an argument.
+variables from (whether they exist or not) and registers the formatted
+environment structure. This method is called automatically on instantiation
+using the global ENV hash as an argument. Note! The hash can contain nested
+objects but it's keys should resemble capitalized/underscored environment
+variable names.
 
     my $hash = {
         APP_MODE => 'development',
@@ -374,6 +386,12 @@ queries specified.
 
     my $item  = $self->params(@list_of_keys);
     my @items = $self->params(@list_of_keys);
+
+You can also pass a single hash-reference to this method and have it traverse
+the key/value pairs and perform the desired assignments. This usage will not
+return a value.
+
+    $self->params(\%params);
 
 =head2 environment
 
