@@ -15,3 +15,4 @@ t/04-lifecycle.t
 t/05-mirror.t
 t/06-domains.t
 t/07-params.t
+t/08-stash.t

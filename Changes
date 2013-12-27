@@ -1,10 +1,38 @@
 ==================================================
-Changes from 2012-10-24 00:00:00 +0000 to present.
+Changes from 2012-12-27 00:00:00 +0000 to present.
 ==================================================
 
 ---------------------------------------------
-version 0.000008 at 2013-10-24 09:30:20 +0000
+version 0.000009 at 2013-12-27 05:40:53 +0000
 ---------------------------------------------
+
+  Change: 36ae0d4f4da6fc5dcec0045957b658a315d01b7a
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-12-27 00:39:15 +0000
+
+    added a stash feature with access via the param method 
+
+  Change: 64e1cce1e5b249a221eeff589f6b5615d349cce2
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-12-26 23:02:32 +0000
+
+    replaced Hash::Merge with Hash::Merge::Simple 
+
+  Change: bf65af1efc1ece8a8dbee10361a8714cdb0022ba
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-10-24 06:19:27 +0000
+
+    return void from hashref-loading 
+
+---------------------------------------------
+version 0.000008 at 2013-10-24 09:30:27 +0000
+---------------------------------------------
+
+  Change: 699dd4833d2a3a96e4e3a143977f244dbc310b1e
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-10-24 05:30:27 +0000
+
+    v0.000008 
 
   Change: c0dc30b70803c616d30ee91979ae5306af5a3837
   Author: Al Newkirk <anewkirk@ana.io>

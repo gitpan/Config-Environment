@@ -6,9 +6,9 @@ use 5.10.0;
 
 use Moo;
 use Hash::Flatten ();
-use Hash::Merge   ();
+use Hash::Merge::Simple ();
 
-our $VERSION = '0.000008'; # VERSION
+our $VERSION = '0.000009'; # VERSION
 
 
 sub BUILDARGS {
@@ -68,6 +68,13 @@ has override => (
 );
 
 
+has stash => (
+    is       => 'ro',
+    required => 0,
+    default  => sub {{}}
+);
+
+
 sub load {
     my ($self, $hash) = @_;
     my $dom = lc $self->domain;
@@ -92,12 +99,12 @@ sub load {
             $hash = Hash::Flatten->new->flatten($value);
 
             for my $refkey (keys %{$hash}) {
-                (my $newref = $refkey) =~ s/(\w):(\d)/"$1.".($2+1)/gpe;
+                (my $newref = $refkey) =~ s/(\w):(\d+)/"$1.".($2+1)/gpe;
                 $hash->{lc "$key.$newref"} = delete $hash->{$refkey};
             }
         }
 
-        $map = Hash::Merge->new('RIGHT_PRECEDENT')->merge(
+        $map = Hash::Merge::Simple->merge(
             $map => Hash::Flatten->new->unflatten($hash)
         );
 
@@ -127,7 +134,7 @@ sub param {
     if (@_ > 2) {
         my $pairs = Hash::Flatten::flatten({$key => $val});
         while (my($key, $val) = each(%{$pairs})) {
-            $key =~ s/(\w):(\d)/"$1.".($2+1)/gpe;
+            $key =~ s/(\w):(\d+)/"$1.".($2+1)/gpe;
             $key =~ s/\\//g;
             unless (exists $ENV{$self->to_env_key($key)} && ! $self->override) {
                 $self->load({$self->to_env_key($key) => $val});
@@ -136,28 +143,66 @@ sub param {
         }
     }
 
+    my $result;
+
+    # env lookup
     if (exists $self->{registry}{env}{$key}) {
-        return $self->{registry}{env}{$key};
+        $result = $self->{registry}{env}{$key};
     }
-    else {
+
+    # env map walk
+    if (!$result) {
         my $node  = $self->{registry}{map};
         my @steps = split /\./, $key;
         for (my $i=0; $i<@steps; $i++) {
             my $step = $steps[$i];
             if (exists $node->{$step}) {
                 if ($i<@steps && 'HASH' ne ref $node) {
-                    return undef;
+                    undef $node and last;
                 }
                 $node = $node->{$step};
             }
             else {
-                return undef;
+                undef $node and last;
             }
         }
-        return $node;
+        $result = $node;
     }
 
-    return;
+    # stash walk
+    if (!$result) {
+        my $key = join '.', grep defined, $self->{subdomain}, $_[1]; #hack
+        $key =~ s/\.(\d+)\./".".($1-1)."."/gpe;
+        unless ($result = $self->stash->{$key}) {
+            my $node  = $self->stash;
+            my @steps = split /\./, $key;
+            for (my $i=0; $i<@steps; $i++) {
+                my $step = $steps[$i];
+                if ('ARRAY' eq ref $node) {
+                    if ($i<@steps && !defined $node->[$step]) {
+                        undef $node and last;
+                    }
+                    else {
+                        $node = $node->[$step];
+                    }
+                }
+                elsif ('HASH' eq ref $node) {
+                    if ($i<@steps && !defined $node->{$step}) {
+                        undef $node and last;
+                    }
+                    else {
+                        $node = $node->{$step};
+                    }
+                }
+                else {
+                    undef $node and last;
+                }
+            }
+            $result = $node;
+        }
+    }
+
+    return $result;
 }
 
 
@@ -169,6 +214,7 @@ sub params {
             while (my ($key, $value) = each%{$keys[0]}) {
                 $self->param($key, $value);
             }
+            return;
         }
     }
 
@@ -197,6 +243,7 @@ sub subdomain {
         override  => $self->override,
         lifecycle => $self->lifecycle,
         mirror    => $self->mirror,
+        stash     => $self->stash,
         domain    => $dom
     );
 
@@ -261,7 +308,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000008
+version 0.000009
 
 =head1 SYNOPSIS
 
@@ -338,6 +385,11 @@ attribute is set to true by default.
 The override attribute contains a boolean value which determines whether
 parameters corresponding to an existing environment variable can have it's
 value overridden. This attribute is set to true by default.
+
+=head2 stash
+
+The stash attribute contains a hashref which can be used to store arbitrary data
+which does not undergo parsing and which can be accessed using the param method.
 
 =head1 METHODS
 

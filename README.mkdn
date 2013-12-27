@@ -4,7 +4,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 # VERSION
 
-version 0.000008
+version 0.000009
 
 # SYNOPSIS
 
@@ -81,6 +81,11 @@ attribute is set to true by default.
 The override attribute contains a boolean value which determines whether
 parameters corresponding to an existing environment variable can have it's
 value overridden. This attribute is set to true by default.
+
+## stash
+
+The stash attribute contains a hashref which can be used to store arbitrary data
+which does not undergo parsing and which can be accessed using the param method.
 
 # METHODS
 

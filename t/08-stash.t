@@ -9,7 +9,7 @@ use warnings;
 use Test::More;
 use Config::Environment;
 
-my $params = {
+my $stash = {
     http => [
         {
             type => 'starman',
@@ -30,9 +30,8 @@ my $params = {
     ]
 };
 
-my $conf = Config::Environment->new('myapp');
-   $conf->param('db.1.conn' => 'dbi:mysql:dbname=foobar');
-   $conf->params($params);
+my $conf = Config::Environment->new(domain => 'myapp', stash => $stash);
+   $conf->stash->{db} = [{conn => 'dbi:mysql:dbname=foobar'}];
 
 my $db  = $conf->subdomain('db');
 my $db1 = $db->subdomain('1');
@@ -58,12 +57,12 @@ is $http1->param('type'), 'starman', 'http1.type is ok';
 is $http1->param('host'), '0.0.0.0', 'http1.host is ok';
 is $http1->param('port'), 9000,      'http1.port is ok';
 is $http1->param('opts.startup_check'), 1, 'http1.startup_check is ok';
-is_deeply $http1->param('opts') => { startup => { check => 1 } };
+is_deeply $http1->param('opts') => { startup_check => 1 };
 
 is $http2->param('type'), 'twiggy',  'http2.type is ok';
 is $http2->param('host'), '0.0.0.0', 'http2.host is ok';
 is $http2->param('port'), 9001,      'http2.port is ok';
 is $http2->param('opts.startup_check'), 1, 'http2.startup_check is ok';
-is_deeply $http2->param('opts') => { startup => { check => 1 } };
+is_deeply $http2->param('opts') => { startup_check => 1 };
 
 done_testing;

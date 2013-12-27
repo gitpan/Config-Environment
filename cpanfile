@@ -1,5 +1,5 @@
 requires "Hash::Flatten" => "0";
-requires "Hash::Merge" => "0";
+requires "Hash::Merge::Simple" => "0";
 requires "Moo" => "0";
 
 on 'test' => sub {
