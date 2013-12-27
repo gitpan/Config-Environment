@@ -8,7 +8,7 @@ use Moo;
 use Hash::Flatten ();
 use Hash::Merge::Simple ();
 
-our $VERSION = '0.000009'; # VERSION
+our $VERSION = '0.000010'; # VERSION
 
 
 sub BUILDARGS {
@@ -225,7 +225,10 @@ sub params {
 
 sub environment {
     my ($self) = @_;
-    my $map = Hash::Flatten->new->flatten($self->{registry}{map});
+    my $map = Hash::Merge::Simple->merge(
+        Hash::Flatten->new->flatten($self->{registry}{map}),
+        Hash::Flatten->new->flatten($self->stash),
+    );
 
     for my $key (keys %{$map}) {
         $map->{$self->to_env_key($key)} = delete $map->{$key};
@@ -308,7 +311,7 @@ Config::Environment - Application Configuration via Environment Variables
 
 =head1 VERSION
 
-version 0.000009
+version 0.000010
 
 =head1 SYNOPSIS
 

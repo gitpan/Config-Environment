@@ -3,8 +3,24 @@ Changes from 2012-12-27 00:00:00 +0000 to present.
 ==================================================
 
 ---------------------------------------------
-version 0.000009 at 2013-12-27 05:40:53 +0000
+version 0.000010 at 2013-12-27 06:28:37 +0000
 ---------------------------------------------
+
+  Change: d6e8df255468c5933062a3d21fb56d753bfea398
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-12-27 01:27:31 +0000
+
+    modified the environment method to include/merge stash data 
+
+---------------------------------------------
+version 0.000009 at 2013-12-27 05:41:01 +0000
+---------------------------------------------
+
+  Change: e14ac4228d30365a78f78c1bd74ad18561a9f467
+  Author: Al Newkirk <anewkirk@ana.io>
+  Date : 2013-12-27 00:41:01 +0000
+
+    v0.000009 
 
   Change: 36ae0d4f4da6fc5dcec0045957b658a315d01b7a
   Author: Al Newkirk <anewkirk@ana.io>
